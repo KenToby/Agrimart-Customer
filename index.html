@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agri Mart — Fresh from the Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F0E1;
+    --card:#FBF8EF;
+    --thumb:#E9E2CD;
+    --forest:#1F3A2A;
+    --forest-2:#2E5238;
+    --ink:#2B2A24;
+    --muted:#7A7462;
+    --accent:#B8863B;
+    --line:rgba(43,42,36,0.12);
+    --radius:12px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{font-family:'Bitter', serif;color:var(--forest);margin:0;}
+  a{color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ---------- Header ---------- */
+  header{
+    background:var(--cream);
+    padding:14px 40px;
+    display:flex;align-items:center;gap:28px;
+    position:sticky;top:0;z-index:50;
+    border-bottom:1px solid var(--line);
+  }
+  .brandmark{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+  .brandmark .stamp-circle{
+    width:30px;height:30px;border-radius:50%;
+    background:var(--forest);color:var(--cream);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bitter',serif;font-weight:700;font-size:12px;
+  }
+  .brandmark .name{font-family:'Bitter',serif;font-weight:700;font-size:18px;color:var(--forest);}
+  .brandmark .name span{color:var(--forest);}
+
+  nav.cats{display:flex;gap:2px;flex:1;overflow-x:auto;}
+  nav.cats button{
+    background:none;border:none;color:var(--muted);
+    padding:7px 12px;font-size:13.5px;font-weight:500;
+    border-radius:20px;white-space:nowrap;
+  }
+  nav.cats button:hover{color:var(--forest);background:rgba(31,58,42,0.06);}
+  nav.cats button.active{color:var(--cream);background:var(--forest);font-weight:600;}
+
+  .search-wrap{
+    display:flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);
+    border-radius:20px;padding:7px 14px;min-width:220px;
+  }
+  .search-wrap input{
+    background:none;border:none;outline:none;color:var(--ink);
+    font-family:inherit;font-size:13.5px;width:100%;
+  }
+  .search-wrap input::placeholder{color:var(--muted);}
+
+  .cart-btn{
+    background:var(--forest);color:var(--cream);border:none;
+    padding:9px 16px;border-radius:20px;font-weight:600;font-size:13.5px;
+    display:flex;align-items:center;gap:8px;flex-shrink:0;
+  }
+  .cart-btn:hover{background:var(--forest-2);}
+  .cart-count{
+    background:var(--cream);color:var(--forest);
+    min-width:18px;height:18px;border-radius:50%;
+    font-size:11px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;padding:0 4px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:48px 40px 36px;
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;
+  }
+  .hero-copy .eyebrow{
+    font-size:12px;font-weight:600;color:var(--muted);
+    letter-spacing:1.5px;margin-bottom:12px;
+  }
+  .hero-copy h1{font-size:46px;line-height:1.1;font-weight:700;max-width:520px;}
+  .hero-copy p{max-width:460px;margin-top:16px;font-size:15.5px;color:#5A5546;}
+  .hero-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--forest);color:var(--cream);border:none;
+    padding:13px 24px;border-radius:8px;font-weight:600;font-size:14.5px;
+  }
+  .btn-primary:hover{background:var(--forest-2);}
+  .btn-ghost{
+    background:transparent;color:var(--forest);border:1.5px solid var(--forest);
+    padding:12px 22px;border-radius:8px;font-weight:600;font-size:14.5px;
+  }
+  .btn-ghost:hover{background:rgba(31,58,42,0.07);}
+
+  .hero-stamp{
+    position:relative;justify-self:stretch;
+    min-height:260px;border-radius:16px;
+    background:linear-gradient(135deg,#D8CFAF 0%,#B9C49A 55%,#8FA878 100%);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .hero-stamp::before{
+    content:"🧺🥬🍅🥕";
+    font-size:64px;letter-spacing:6px;
+  }
+  .hero-stamp > div{
+    position:absolute;right:18px;bottom:18px;
+    width:96px;height:96px;border-radius:50%;
+    background:var(--cream);border:2px solid var(--forest);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+  }
+  .hero-stamp .txt{
+    font-family:'Bitter',serif;font-weight:800;color:var(--forest);
+    font-size:12px;line-height:1.15;letter-spacing:0.5px;
+  }
+  .hero-stamp .sub{font-size:8px;font-weight:600;color:var(--muted);letter-spacing:1px;margin-top:3px;}
+
+  /* ---------- Section ---------- */
+  .section{max-width:1180px;margin:0 auto;padding:8px 40px 60px;}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:20px;flex-wrap:wrap;gap:10px;
+  }
+  .section-head h2{font-size:22px;font-weight:700;}
+  .section-head .count{font-size:13px;color:var(--muted);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    gap:22px;
+  }
+
+  .card{
+    background:transparent;
+    border:none;
+    border-radius:var(--radius);
+    overflow:visible;
+    display:flex;flex-direction:column;
+    transition:transform .15s ease;
+  }
+  .card:hover{transform:translateY(-3px);}
+  .card .thumb{
+    height:170px;background:var(--thumb);border-radius:var(--radius);
+    display:flex;align-items:center;justify-content:center;
+    font-size:64px;position:relative;
+  }
+  .card .badge{
+    position:absolute;top:10px;left:10px;
+    background:var(--cream);color:var(--forest);
+    font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;
+  }
+  .card .body{padding:12px 2px 0;display:flex;flex-direction:column;gap:2px;flex:1;}
+  .card .name{font-weight:600;font-size:14.5px;color:var(--ink);}
+  .card .farmer{font-size:12px;color:var(--muted);}
+  .card .price-row{
+    margin-top:auto;padding-top:8px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .card .price{font-family:'Bitter',serif;font-weight:700;font-size:16px;color:var(--forest);}
+  .card .unit{font-size:12px;color:var(--muted);font-weight:400;}
+  .add-btn{
+    background:var(--forest);color:var(--cream);border:none;
+    width:30px;height:30px;border-radius:50%;font-size:18px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;line-height:1;
+  }
+  .add-btn:hover{background:var(--forest-2);}
+
+  .empty-note{
+    font-size:14px;color:var(--muted);text-align:center;padding:40px 20px;
+    grid-column:1/-1;
+  }
+
+  /* ---------- Cart Drawer ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(31,40,30,0.5);
+    opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:90;
+  }
+  .overlay.show{opacity:1;pointer-events:auto;}
+
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:390px;max-width:92vw;
+    background:var(--cream);z-index:100;
+    display:flex;flex-direction:column;
+    transform:translateX(100%);transition:transform .25s ease;
+    box-shadow:-6px 0 24px rgba(0,0,0,0.18);
+  }
+  .drawer.show{transform:translateX(0);}
+  .drawer-head{
+    background:var(--cream);color:var(--forest);
+    padding:18px 20px;display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .drawer-head h3{color:var(--forest);font-size:18px;}
+  .close-btn{background:none;border:none;color:var(--forest);font-size:22px;}
+  .drawer-body{flex:1;overflow-y:auto;padding:12px 20px;}
+  .cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+  .cart-item .ic{
+    width:52px;height:52px;background:var(--thumb);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;
+  }
+  .cart-item .info{flex:1;}
+  .cart-item .info .n{font-weight:600;font-size:14px;}
+  .cart-item .info .p{font-size:12.5px;color:var(--muted);margin-top:2px;}
+  .qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:8px;}
+  .qty-ctrl button{
+    width:24px;height:24px;border-radius:50%;border:1px solid var(--line);
+    background:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;
+  }
+  .qty-ctrl .n{font-size:13px;font-weight:600;min-width:16px;text-align:center;}
+  .remove-link{
+    font-size:12px;color:var(--muted);background:none;border:none;
+    align-self:flex-start;margin-top:4px;text-decoration:underline;padding:0;
+  }
+  .drawer-foot{padding:18px 20px 22px;border-top:1px solid var(--line);background:var(--cream);}
+  .total-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px;color:#5A5546;}
+  .total-row.grand{font-weight:700;font-size:17px;color:var(--forest);margin-top:8px;}
+  .checkout-btn{
+    width:100%;margin-top:14px;background:var(--forest);color:var(--cream);
+    border:none;padding:14px;border-radius:8px;font-weight:600;font-size:14.5px;
+  }
+  .checkout-btn:hover{background:var(--forest-2);}
+  .checkout-btn:disabled{background:#B5B09C;cursor:not-allowed;}
+
+  /* ---------- Mga Order sa Basket ---------- */
+  .orders-title{
+    font-family:'Bitter',serif;font-weight:700;font-size:15px;color:var(--forest);
+    margin:22px 0 10px;padding-top:16px;border-top:2px dashed var(--line);
+  }
+  .order-card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin-bottom:10px;
+  }
+  .order-card .top{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .order-card .oid{font-family:'Bitter',serif;font-weight:700;font-size:13.5px;color:var(--forest);}
+  .order-card .status{
+    font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;
+    background:rgba(184,134,59,0.18);color:#8A6222;white-space:nowrap;
+  }
+  .order-card .when{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .order-card ul{list-style:none;margin:8px 0;padding:0;font-size:13px;color:#5A5546;}
+  .order-card li{display:flex;justify-content:space-between;gap:8px;padding:2px 0;}
+  .order-card .foot{
+    display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:8px;
+  }
+  .order-card .foot strong{color:var(--forest);font-size:14px;}
+
+  /* ---------- Checkout Modal ---------- */
+  .modal{
+    position:fixed;inset:0;z-index:110;
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    opacity:0;pointer-events:none;transition:opacity .2s ease;
+    background:rgba(31,40,30,0.5);
+  }
+  .modal.show{opacity:1;pointer-events:auto;}
+  .modal-card{
+    background:var(--cream);border-radius:14px;max-width:460px;width:100%;
+    max-height:88vh;overflow-y:auto;padding:28px;
+  }
+  .modal-card h3{font-size:21px;margin-bottom:4px;}
+  .modal-card .sub{font-size:13px;color:var(--muted);margin-bottom:18px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px;color:var(--forest);}
+  .field input, .field select, .field textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;
+    font-family:inherit;font-size:14px;background:#fff;color:var(--ink);
+  }
+  .field textarea{resize:vertical;min-height:60px;}
+  .pay-options{display:flex;gap:10px;}
+  .pay-options label{
+    flex:1;border:1.5px solid var(--line);border-radius:8px;padding:10px;
+    font-size:13px;text-align:center;cursor:pointer;font-weight:500;background:#fff;
+  }
+  .pay-options input{width:auto;margin-right:6px;}
+  .pay-options label.sel{border-color:var(--forest);background:rgba(31,58,42,0.06);}
+
+  .confirm-view{text-align:center;padding:10px 0;}
+  .confirm-view .check{
+    width:60px;height:60px;border-radius:50%;background:var(--forest);
+    color:var(--cream);font-size:30px;display:flex;align-items:center;justify-content:center;
+    margin:0 auto 16px;
+  }
+  .confirm-view h3{margin-bottom:8px;}
+  .confirm-view p{color:#5A5546;font-size:14.5px;margin-bottom:4px;}
+  .order-id{font-family:'Bitter',serif;font-weight:700;color:var(--forest);font-size:18px;margin:10px 0;}
+
+  footer{
+    background:var(--cream);color:var(--muted);border-top:1px solid var(--line);
+    text-align:center;padding:22px;font-size:13px;
+  }
+  footer strong{color:var(--forest);}
+
+  @media(max-width:820px){
+    .hero{grid-template-columns:1fr;padding:32px 20px;}
+    .hero-stamp{min-height:180px;}
+    header{flex-wrap:wrap;padding:12px 16px;gap:12px;}
+    nav.cats{order:3;width:100%;}
+    .search-wrap{flex:1;min-width:0;}
+    .hero-copy h1{font-size:32px;}
+    .section{padding:8px 20px 48px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brandmark">
+    <div class="stamp-circle">AM</div>
+    <div class="name">Agri <span>Mart</span></div>
+  </div>
+  <nav class="cats" id="catNav"></nav>
+  <div class="search-wrap">
+    <span>🔍</span>
+    <input type="text" id="searchInput" placeholder="Search products...">
+  </div>
+  <button class="cart-btn" id="openCartBtn">
+    🧺 Basket <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">SAN FABIAN, PANGASINAN</div>
+    <h1>Fresh from the soil, straight to your home.</h1>
+    <p>Shop for vegetables, fruits, rice, and milkfish from the local farmers and fisherfolk of San Fabian.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" id="shopNowBtn">Start shopping</button>
+      <button class="btn-ghost" id="howItWorksBtn">How does it work?</button>
+    </div>
+  </div>
+  <div class="hero-stamp">
+    <div>
+      <div class="txt">FRESH<br>HARVEST</div>
+      <div class="sub">EST. SAN FABIAN</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="howBox" style="display:none;">
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 26px;margin-bottom:10px;">
+    <h3 style="font-size:18px;margin-bottom:10px;">How Agri Mart works</h3>
+    <p style="font-size:14px;color:#5A5546;margin:0 0 8px;">1. Browse fresh products below, by category or using search.</p>
+    <p style="font-size:14px;color:#5A5546;margin:0 0 8px;">2. Add what you want to buy to your basket and adjust the quantity.</p>
+    <p style="font-size:14px;color:#5A5546;margin:0;">3. Check out with your details and payment method — Cash on Delivery or GCash.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2 id="sectionTitle">All Products</h2>
+    <span class="count" id="resultCount"></span>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+
+<!-- Cart Drawer -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Your Basket</h3>
+    <button class="close-btn" id="closeCartBtn">×</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot">
+    <div class="total-row"><span>Subtotal</span><span id="subtotalVal">₱0</span></div>
+    <div class="total-row"><span>Delivery fee</span><span id="deliveryVal">₱0</span></div>
+    <div class="total-row grand"><span>Total</span><span id="grandVal">₱0</span></div>
+    <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+  </div>
+</div>
+
+<!-- Checkout Modal -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card" id="modalContent"></div>
+</div>
+
+<script>
+// ---------- Sample product data (demo lang — hiwalay na sistema ang para sa magbebenta) ----------
+const SAMPLE_PRODUCTS = [
+  {id:1, name:"Sinandomeng Bigas", farmer:"Mang Torio, Brgy. Longos", cat:"Bigas at Butil", price:52, unit:"kilo", icon:"🌾", badge:"Bestseller"},
+  {id:2, name:"Malagkit na Bigas", farmer:"Aling Fely, Brgy. Nibaliw", cat:"Bigas at Butil", price:60, unit:"kilo", icon:"🌾"},
+  {id:3, name:"Sariwang Bangus", farmer:"Mang Ernie, Fish Pen San Fabian", cat:"Isda't Dagat", price:220, unit:"kilo", icon:"🐟", badge:"Fresh Catch"},
+  {id:4, name:"Tilapia", farmer:"Kooperatiba ng Palaisdaan", cat:"Isda't Dagat", price:130, unit:"kilo", icon:"🐟"},
+  {id:5, name:"Alimango", farmer:"Mang Boy, Brgy. Cayanga", cat:"Isda't Dagat", price:480, unit:"kilo", icon:"🦀"},
+  {id:6, name:"Kamatis", farmer:"Aling Nena, Brgy. Rabon", cat:"Gulay", price:45, unit:"kilo", icon:"🍅"},
+  {id:7, name:"Talong", farmer:"Mang Dado, Brgy. Sonquil", cat:"Gulay", price:35, unit:"kilo", icon:"🍆"},
+  {id:8, name:"Sitaw", farmer:"Aling Rosa, Brgy. Cabaruan", cat:"Gulay", price:40, unit:"kilo", icon:"🫛"},
+  {id:9, name:"Ampalaya", farmer:"Mang Ising, Brgy. Bolasi", cat:"Gulay", price:38, unit:"kilo", icon:"🥒"},
+  {id:10, name:"Kalabasa", farmer:"Aling Baby, Brgy. Alacan", cat:"Gulay", price:30, unit:"kilo", icon:"🎃"},
+  {id:11, name:"Mangga (Carabao)", farmer:"Mang Julio, Brgy. Cabilo-an", cat:"Prutas", price:90, unit:"kilo", icon:"🥭", badge:"Sagana"},
+  {id:12, name:"Saging na Lakatan", farmer:"Aling Puring, Brgy. Anonang", cat:"Prutas", price:55, unit:"dozen", icon:"🍌"},
+  {id:13, name:"Papaya", farmer:"Mang Rico, Brgy. Poblacion", cat:"Prutas", price:28, unit:"kilo", icon:"🥭"},
+  {id:14, name:"Kalamansi", farmer:"Aling Terry, Brgy. Nagpalangan", cat:"Prutas", price:60, unit:"kilo", icon:"🍋"},
+  {id:15, name:"Manok (Malansang)", farmer:"Mang Efren, Poultry Farm", cat:"Manok at Itlog", price:170, unit:"kilo", icon:"🐔"},
+  {id:16, name:"Itlog na Manok", farmer:"Aling Josie, Brgy. Sagcalan", cat:"Manok at Itlog", price:8, unit:"piraso", icon:"🥚"},
+  {id:17, name:"Itlog na Bibe (Duck)", farmer:"Mang Danny, Brgy. Longos", cat:"Manok at Itlog", price:12, unit:"piraso", icon:"🥚"},
+  {id:18, name:"Sibuyas na Pula", farmer:"Aling Cora, Brgy. Rabon", cat:"Gulay", price:70, unit:"kilo", icon:"🧅"},
+];
+
+// ---------- Server (customer_api.php) ----------
+async function api(action, body){
+  try{
+    const res = await fetch('customer_api.php?action=' + encodeURIComponent(action), {
+      method: body ? 'POST' : 'GET',
+      headers: body ? {'Content-Type':'application/json'} : {},
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    return await res.json();
+  }catch(e){
+    return {ok:false, error:'Hindi maabot ang server. Siguraduhing naka-start ang Apache at MySQL sa XAMPP.'};
+  }
+}
+
+// Mga paninda ng farmers (galing sa database ng farmer page) + mga sample na paninda
+let FARMER_PRODUCTS = [];
+function allProducts(){ return [...FARMER_PRODUCTS.map(x=>({...x, badge:'Bago'})), ...SAMPLE_PRODUCTS]; }
+let PRODUCTS = allProducts();
+async function loadFarmerProducts(){
+  const r = await api('products');
+  if(!r.ok) return;
+  FARMER_PRODUCTS = r.products;
+  PRODUCTS = allProducts();
+  renderProducts();
+  renderCart();
+}
+
+const CATEGORIES = ["Lahat", "Gulay", "Prutas", "Bigas at Butil", "Isda't Dagat", "Manok at Itlog"];
+
+let activeCat = "Lahat";
+let searchTerm = "";
+let cart = {}; // id -> qty
+
+// Ang mga order ay nasa database. Ang browser ay nag-iingat lang ng order number
+// at sikretong token para mabalikan ng customer ang kanyang mga order.
+function loadMyOrders(){
+  try{ return JSON.parse(localStorage.getItem('agrimartMyOrders')||'[]'); }catch(e){ return []; }
+}
+function saveMyOrders(){
+  try{ localStorage.setItem('agrimartMyOrders', JSON.stringify(myOrders)); }catch(e){}
+}
+let myOrders = loadMyOrders();   // [{code, token}]
+let orders = [];                 // buong detalye ng order, galing sa database
+let statusMap = {};              // status ng bawat order ng farmer
+function esc(t){ return String(t).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+const STATUS_LABEL = {
+  'Pending':'Naghihintay ng kumpirmasyon', 'Approved':'Aprubado ng farmer', 'Rejected':'Tinanggihan',
+  'Ready for Pickup':'Handa na', 'Completed':'Tapos na'
+};
+function orderStatus(o){
+  if(!o.subIds || o.subIds.length===0) return {text:'Hindi naipadala sa farmer', note:'', sent:false};
+  const labels = [...new Set(o.subIds.map(id=> statusMap[id] ? (STATUS_LABEL[statusMap[id].status] || statusMap[id].status) : 'Naipadala sa farmer'))];
+  const rej = o.subIds.map(id=>statusMap[id]).find(m=>m && m.status==='Rejected' && m.note);
+  return {text: labels.join(' · '), note: rej ? rej.note : '', sent:true};
+}
+function fmtDate(s){   // 'YYYY-MM-DD HH:MM:SS' (oras sa Pilipinas)
+  const d = new Date(String(s).replace(' ','T') + '+08:00');
+  return isNaN(d) ? String(s) : d.toLocaleString('en-PH',{dateStyle:'medium', timeStyle:'short'});
+}
+
+// Kunin ulit ang mga order at ang kasalukuyang status mula sa database
+async function refreshOrders(){
+  if(myOrders.length===0){ orders = []; statusMap = {}; renderCart(); return; }
+  const r = await api('my_orders', {orders: myOrders});
+  if(!r.ok) return;
+  orders = r.orders.map(o=>({...o, date: fmtDate(o.createdAt)}));
+  statusMap = r.statusMap;
+  renderCart();
+}
+
+// Itatago lang sa browser na ito. Nananatili ang tala sa database.
+function removeOrder(id){
+  myOrders = myOrders.filter(m=>m.code!==id);
+  saveMyOrders();
+  orders = orders.filter(o=>o.id!==id);
+  renderCart();
+}
+
+function renderOrders(body){
+  if(orders.length===0) return;
+  const title = document.createElement('div');
+  title.className = 'orders-title';
+  title.textContent = 'Mga Order Ko (' + orders.length + ')';
+  body.appendChild(title);
+  orders.forEach(o=>{
+    const card = document.createElement('div');
+    card.className = 'order-card';
+    const st = orderStatus(o);
+    card.innerHTML = `
+      <div class="top"><span class="oid">Order #${esc(o.id)}</span><span class="status">${esc(st.text)}</span></div>
+      ${st.note ? `<div class="when">Dahilan: ${esc(st.note)}</div>` : ''}
+      ${st.sent ? '' : `<div class="when"><a href="#" data-remove="${esc(o.id)}" style="color:#9a3b2e;">Alisin</a></div>`}
+      <div class="when">${esc(o.date)}</div>
+      <ul>${o.items.map(i=>`<li><span>${i.icon} ${esc(i.name)} × ${i.qty}</span><span>₱${i.price*i.qty}</span></li>`).join('')}</ul>
+      <div class="foot"><span>${esc(o.pay)} · Delivery: ${o.delivery===0?'Libre':'₱'+o.delivery}</span><strong>₱${o.total}</strong></div>
+    `;
+    const rm = card.querySelector('[data-remove]');
+    if(rm) rm.onclick = (ev)=>{ ev.preventDefault(); removeOrder(o.id); };
+    body.appendChild(card);
+  });
+}
+
+// ---------- Render category nav ----------
+const catNav = document.getElementById('catNav');
+CATEGORIES.forEach(cat=>{
+  const btn = document.createElement('button');
+  btn.textContent = cat;
+  if(cat===activeCat) btn.classList.add('active');
+  btn.onclick = ()=>{ activeCat = cat; renderCatNav(); renderProducts(); };
+  btn.dataset.cat = cat;
+  catNav.appendChild(btn);
+});
+function renderCatNav(){
+  [...catNav.children].forEach(b=>b.classList.toggle('active', b.dataset.cat===activeCat));
+}
+
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  searchTerm = e.target.value.trim().toLowerCase();
+  renderProducts();
+});
+
+document.getElementById('shopNowBtn').onclick = ()=>{
+  document.querySelector('.section').scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('howItWorksBtn').onclick = ()=>{
+  const box = document.getElementById('howBox');
+  box.style.display = box.style.display==='none' ? 'block' : 'none';
+  if(box.style.display==='block') box.scrollIntoView({behavior:'smooth', block:'center'});
+};
+
+// ---------- Render products ----------
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  let list = PRODUCTS.filter(p=>{
+    const matchCat = activeCat==="Lahat" || p.cat===activeCat;
+    const matchSearch = !searchTerm || p.name.toLowerCase().includes(searchTerm) || p.cat.toLowerCase().includes(searchTerm);
+    return matchCat && matchSearch;
+  });
+
+  document.getElementById('sectionTitle').textContent = activeCat==="Lahat" ? "Lahat ng Paninda" : activeCat;
+  document.getElementById('resultCount').textContent = list.length + (list.length===1 ? " paninda" : " na paninda");
+
+  if(list.length===0){
+    grid.innerHTML = '<div class="empty-note">Walang nahanap na tugma. Subukan ang ibang salita o kategorya.</div>';
+    return;
+  }
+
+  list.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="thumb" ${p.photo ? `style="background:url('${p.photo}') center/cover no-repeat var(--thumb)"` : ''}>${p.badge ? `<span class="badge">${p.badge}</span>` : ''}${p.photo ? '' : p.icon}</div>
+      <div class="body">
+        <div class="name">${p.name}</div>
+        <div class="farmer">${p.farmer}</div>
+        <div class="price-row">
+          <div><span class="price">₱${p.price}</span> <span class="unit">/ ${p.unit}</span></div>
+          <button class="add-btn" data-id="${p.id}">+</button>
+        </div>
+      </div>
+    `;
+    card.querySelector('.add-btn').onclick = ()=> addToCart(p.id);
+    grid.appendChild(card);
+  });
+}
+
+// ---------- Cart logic ----------
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1;
+  renderCart();
+  openCart();
+}
+function changeQty(id, delta){
+  cart[id] = (cart[id]||0) + delta;
+  if(cart[id]<=0) delete cart[id];
+  renderCart();
+}
+function removeItem(id){
+  delete cart[id];
+  renderCart();
+}
+
+function renderCart(){
+  Object.keys(cart).forEach(id=>{ if(!PRODUCTS.find(x=>x.id==id)) delete cart[id]; });
+  const body = document.getElementById('cartBody');
+  const ids = Object.keys(cart);
+  const totalCount = ids.reduce((s,id)=>s+cart[id],0);
+  document.getElementById('cartCount').textContent = totalCount;
+
+  if(ids.length===0){
+    body.innerHTML = '<div class="empty-note" style="padding:50px 10px;">Wala pang laman ang basket. Magdagdag ng paninda para magsimula.</div>';
+    document.getElementById('subtotalVal').textContent = '₱0';
+    document.getElementById('deliveryVal').textContent = '₱0';
+    document.getElementById('grandVal').textContent = '₱0';
+    document.getElementById('checkoutBtn').disabled = true;
+    renderOrders(body);
+    return;
+  }
+
+  body.innerHTML = '';
+  let subtotal = 0;
+  ids.forEach(id=>{
+    const p = PRODUCTS.find(x=>x.id==id);
+    const qty = cart[id];
+    const lineTotal = p.price * qty;
+    subtotal += lineTotal;
+    const row = document.createElement('div');
+    row.className = 'cart-item';
+    row.innerHTML = `
+      <div class="ic" ${p.photo ? `style="background:url('${p.photo}') center/cover no-repeat var(--thumb);font-size:0"` : ''}>${p.photo ? '' : p.icon}</div>
+      <div class="info">
+        <div class="n">${p.name}</div>
+        <div class="p">₱${p.price} / ${p.unit} · ₱${lineTotal}</div>
+        <div class="qty-ctrl">
+          <button data-act="minus">−</button>
+          <span class="n">${qty}</span>
+          <button data-act="plus">+</button>
+        </div>
+        <button class="remove-link">Alisin</button>
+      </div>
+    `;
+    row.querySelector('[data-act="minus"]').onclick = ()=>changeQty(id,-1);
+    row.querySelector('[data-act="plus"]').onclick = ()=>changeQty(id,1);
+    row.querySelector('.remove-link').onclick = ()=>removeItem(id);
+    body.appendChild(row);
+  });
+  renderOrders(body);
+
+  const delivery = subtotal >= 500 ? 0 : 40;
+  document.getElementById('subtotalVal').textContent = '₱'+subtotal;
+  document.getElementById('deliveryVal').textContent = delivery===0 ? 'Libre' : '₱'+delivery;
+  document.getElementById('grandVal').textContent = '₱'+(subtotal+delivery);
+  document.getElementById('checkoutBtn').disabled = false;
+}
+
+// ---------- Drawer open/close ----------
+const overlay = document.getElementById('overlay');
+const drawer = document.getElementById('cartDrawer');
+function openCart(){ drawer.classList.add('show'); overlay.classList.add('show'); refreshOrders(); }
+function closeCart(){ drawer.classList.remove('show'); overlay.classList.remove('show'); }
+document.getElementById('openCartBtn').onclick = openCart;
+document.getElementById('closeCartBtn').onclick = closeCart;
+overlay.onclick = ()=>{ closeCart(); closeModal(); };
+
+// ---------- Checkout modal ----------
+const modal = document.getElementById('checkoutModal');
+const modalContent = document.getElementById('modalContent');
+
+function openModal(){ modal.classList.add('show'); overlay.classList.add('show'); }
+function closeModal(){ modal.classList.remove('show'); overlay.classList.remove('show'); }
+
+document.getElementById('checkoutBtn').onclick = ()=>{
+  renderCheckoutForm();
+  openModal();
+};
+
+function renderCheckoutForm(){
+  const ids = Object.keys(cart);
+  const subtotal = ids.reduce((s,id)=>s+PRODUCTS.find(x=>x.id==id).price*cart[id],0);
+  const delivery = subtotal >= 500 ? 0 : 40;
+  const total = subtotal+delivery;
+
+  modalContent.innerHTML = `
+    <h3>Detalye ng Order</h3>
+    <div class="sub">Kompletuhin ang detalye para ihatid ang iyong sariwang paninda.</div>
+    <div class="field">
+      <label>Buong Pangalan</label>
+      <input type="text" id="custName" placeholder="Juan Dela Cruz">
+    </div>
+    <div class="field">
+      <label>Numero ng Telepono</label>
+      <input type="text" id="custPhone" placeholder="09XX XXX XXXX">
+    </div>
+    <div class="field">
+      <label>Address sa Paghahatid</label>
+      <textarea id="custAddress" placeholder="Sitio"></textarea>
+    </div>
+    <div class="field">
+      <label>Paraan ng Bayad</label>
+      <div class="pay-options">
+        <label class="sel" id="lblCod"><input type="radio" name="pay" value="COD" checked> Cash on Delivery</label>
+        <label id="lblGcash"><input type="radio" name="pay" value="GCash"> GCash</label>
+      </div>
+    </div>
+    <div style="background:white;border:1px solid var(--line);border-radius:4px;padding:12px 14px;margin:16px 0;">
+      <div class="total-row"><span>Subtotal</span><span>₱${subtotal}</span></div>
+      <div class="total-row"><span>Delivery fee</span><span>${delivery===0?'Libre':'₱'+delivery}</span></div>
+      <div class="total-row grand"><span>Total</span><span>₱${total}</span></div>
+    </div>
+    <button class="checkout-btn" id="placeOrderBtn">Ikumpirma ang Order</button>
+    <button class="btn-ghost" style="width:100%;margin-top:10px;" id="backToCartBtn">Balik sa basket</button>
+  `;
+
+  modalContent.querySelector('#lblCod').onclick = ()=>{
+    modalContent.querySelector('#lblCod').classList.add('sel');
+    modalContent.querySelector('#lblGcash').classList.remove('sel');
+  };
+  modalContent.querySelector('#lblGcash').onclick = ()=>{
+    modalContent.querySelector('#lblGcash').classList.add('sel');
+    modalContent.querySelector('#lblCod').classList.remove('sel');
+  };
+  modalContent.querySelector('#backToCartBtn').onclick = closeModal;
+  modalContent.querySelector('#placeOrderBtn').onclick = async ()=>{
+    const name = modalContent.querySelector('#custName').value.trim();
+    const phone = modalContent.querySelector('#custPhone').value.trim();
+    const address = modalContent.querySelector('#custAddress').value.trim();
+    if(!name || !phone || !address){
+      alert('Pakikompleto ang pangalan, numero, at address bago magpatuloy.');
+      return;
+    }
+    const pay = modalContent.querySelector('input[name="pay"]:checked').value;
+    const btn = modalContent.querySelector('#placeOrderBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sine-save ang order...';
+
+    // Ang server ang magse-save ng order at magpapadala nito sa bawat farmer (isang order bawat farmer)
+    const r = await api('order_create', {
+      name, phone, address, pay,
+      items: ids.map(id=>{
+        const p = PRODUCTS.find(x=>x.id==id);
+        return {id:String(p.id), name:p.name, icon:p.icon, price:Number(p.price), unit:p.unit, qty:Number(cart[id]), fromFarmer:!!p.fromFarmer};
+      })
+    });
+    if(!r.ok){
+      alert(r.error || 'Hindi na-save ang order.');
+      btn.disabled = false;
+      btn.textContent = 'Ikumpirma ang Order';
+      if(r.refresh) loadFarmerProducts();   // may nagbago sa stock o paninda
+      return;
+    }
+    myOrders.unshift({code: r.order.id, token: r.token});
+    saveMyOrders();
+    cart = {};          // walang laman na ang bagong basket, pero nakatala na ang order
+    await refreshOrders();   // lalabas ang order sa ilalim ng basket
+    renderConfirmation(r.order.id, r.order.total);
+  };
+}
+
+function renderConfirmation(orderId, total){
+  modalContent.innerHTML = `
+    <div class="confirm-view">
+      <div class="check">✓</div>
+      <h3>Salamat sa iyong order!</h3>
+      <p>Ang iyong order ay natanggap na at ihahatid sa lalong madaling panahon.</p>
+      <div class="order-id">Order #${orderId}</div>
+      <p>Kabuuang bayad: <strong>₱${total}</strong></p>
+      <button class="btn-primary" style="width:100%;margin-top:18px;" id="doneBtn">Tapos na</button>
+    </div>
+  `;
+  modalContent.querySelector('#doneBtn').onclick = ()=>{
+    closeModal();
+    openCart();   // nananatiling bukas ang basket para makita ang order
+  };
+}
+
+// ---------- Kusang pag-refresh galing sa database ----------
+setInterval(refreshOrders, 30000);          // status ng order galing sa farmer
+setInterval(loadFarmerProducts, 120000);    // bagong paninda at stock
+
+// ---------- Init ----------
+renderProducts();
+renderCart();
+loadFarmerProducts();
+refreshOrders();
+</script>
+
+</body>
+</html>
